@@ -78,6 +78,7 @@ object CheckerMethods {
             if (Build.VERSION.SDK_INT >= 34) {
                 activity.display!!.mode!!.supportedHdrTypes
             } else if (Build.VERSION.SDK_INT >= 30) {
+                @Suppress("DEPRECATION")
                 activity.display!!.hdrCapabilities!!.supportedHdrTypes
             } else {
                 intArrayOf(0)
@@ -149,6 +150,5 @@ object CheckerMethods {
      * @return Boolean
      */
     fun getTrebleEnabledState() = SystemProperties.get("ro.treble.enabled", "false").toBoolean()
-
 
 }

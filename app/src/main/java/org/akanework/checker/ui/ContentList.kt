@@ -14,6 +14,7 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import org.akanework.checker.MainActivity
 import org.akanework.checker.R
@@ -301,8 +302,7 @@ fun ContentList(
     )
 
     Column(
-        androidx.compose.ui.Modifier
-            .padding(innerPadding)
+        Modifier.padding(innerPadding)
     ) {
         StatusCard(securityLevel)
         if (!abnormalitiesList.isEmpty()) {

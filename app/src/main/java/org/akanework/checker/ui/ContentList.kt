@@ -53,17 +53,6 @@ fun ContentList(
         )
     )
 
-    val abnormalitiesListInfo = CheckerInfo(
-        stringResource(id = R.string.abnormalities),
-        R.drawable.ic_error_outline_24dp,
-        listOf(
-            CheckerInfoItem(
-                abnormalitiesList.toList().joinToString(separator = "\n· ", prefix = "· "),
-                ""
-            )
-        )
-    )
-
     val basicInfo = CheckerInfo(
         stringResource(id = R.string.basic),
         R.drawable.ic_info_24dp,
@@ -275,6 +264,18 @@ fun ContentList(
             CheckerInfoItem(
                 stringResource(id = R.string.drm_algo),
                 CheckerMethods.getDrmInfo().drmAlgo
+            )
+        )
+    )
+
+    // It should be placed after all check
+    val abnormalitiesListInfo = CheckerInfo(
+        stringResource(id = R.string.abnormalities),
+        R.drawable.ic_error_outline_24dp,
+        listOf(
+            CheckerInfoItem(
+                abnormalitiesList.joinToString(separator = "\n· ", prefix = "· "),
+                ""
             )
         )
     )

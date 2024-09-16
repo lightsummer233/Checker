@@ -59,16 +59,18 @@ fun InfoCard(info: CheckerInfo) {
                         modifier = Modifier,
                         fontWeight = if (item.isImportant) FontWeight.Bold else FontWeight.Normal
                     )
-                    Text(
-                        text = item.value,
-                        style = MaterialTheme.typography.bodyMedium,
-                        modifier = Modifier
-                            .weight(1f)
-                            .padding(start = 16.dp),
-                        fontFamily = FontFamily.Monospace,
-                        fontWeight = if (item.isImportant) FontWeight.Bold else FontWeight.Normal,
-                        textAlign = TextAlign.End
-                    )
+                    if (item.value.isNotEmpty()) {
+                        Text(
+                            text = item.value,
+                            style = MaterialTheme.typography.bodyMedium,
+                            modifier = Modifier
+                                .weight(1f)
+                                .padding(start = 16.dp),
+                            fontFamily = FontFamily.Monospace,
+                            fontWeight = if (item.isImportant) FontWeight.Bold else FontWeight.Normal,
+                            textAlign = TextAlign.End
+                        )
+                    }
                 }
             }
         }

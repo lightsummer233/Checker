@@ -39,28 +39,28 @@ fun StatusCard(status: Int) {
 
         else -> throw IllegalAccessException()
     }
-    val title: String = when(status){
+    val title: String = when (status) {
         0 -> stringResource(id = R.string.normal_title)
         1 -> stringResource(id = R.string.notice_title)
         2 -> stringResource(id = R.string.critical_title)
 
         else -> throw IllegalAccessException()
     }
-    val summary: String = when(status) {
+    val summary: String = when (status) {
         0 -> stringResource(id = R.string.normal_summary)
         1 -> stringResource(id = R.string.notice_summary)
         2 -> stringResource(id = R.string.critical_summary)
 
         else -> throw IllegalAccessException()
     }
-    val iconPainter = when(status) {
+    val iconPainter = when (status) {
         0 -> painterResource(id = R.drawable.ic_check_circle_24dp)
         1 -> painterResource(id = R.drawable.ic_warning_24dp)
         2 -> painterResource(id = R.drawable.ic_dangerous_24dp)
 
         else -> throw IllegalAccessException()
     }
-    
+
     Surface(
         Modifier
             .fillMaxWidth()

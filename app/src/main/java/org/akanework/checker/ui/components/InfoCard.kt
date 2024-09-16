@@ -26,13 +26,13 @@ import org.akanework.checker.model.CheckerInfoItem
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun InfoCard(info: CheckerInfo){
+fun InfoCard(info: CheckerInfo) {
     Surface(
         modifier = Modifier.padding(16.dp, 16.dp, 16.dp, 0.dp),
         shape = RoundedCornerShape(16.dp),
         border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
         contentColor = MaterialTheme.colorScheme.onSurface
-    ){
+    ) {
         Column(
             Modifier.padding(16.dp)
         ) {
@@ -51,20 +51,22 @@ fun InfoCard(info: CheckerInfo){
                     tint = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
-            info.content.forEach{ item ->
+            info.content.forEach { item ->
                 FlowRow(Modifier.padding(top = 8.dp)) {
                     Text(
                         text = item.name,
                         style = MaterialTheme.typography.bodyMedium,
                         modifier = Modifier,
-                        fontWeight = if(item.isImportant) FontWeight.Bold else FontWeight.Normal
+                        fontWeight = if (item.isImportant) FontWeight.Bold else FontWeight.Normal
                     )
                     Text(
                         text = item.value,
                         style = MaterialTheme.typography.bodyMedium,
-                        modifier = Modifier.weight(1f).padding(start = 16.dp),
+                        modifier = Modifier
+                            .weight(1f)
+                            .padding(start = 16.dp),
                         fontFamily = FontFamily.Monospace,
-                        fontWeight = if(item.isImportant) FontWeight.Bold else FontWeight.Normal,
+                        fontWeight = if (item.isImportant) FontWeight.Bold else FontWeight.Normal,
                         textAlign = TextAlign.End
                     )
                 }
@@ -76,14 +78,13 @@ fun InfoCard(info: CheckerInfo){
 @Composable
 @Preview
 fun InfoCardPreview() {
-    val previewInfo =
-        CheckerInfo(
-            title = "Title",
-            iconResource = R.drawable.ic_check_circle_24dp,
-            content = listOf(
-                CheckerInfoItem("item1", "value1", true),
-                CheckerInfoItem("item2", "value2")
-            )
+    val previewInfo = CheckerInfo(
+        title = "Title",
+        iconResource = R.drawable.ic_check_circle_24dp,
+        content = listOf(
+            CheckerInfoItem("item1", "value1", true),
+            CheckerInfoItem("item2", "value2")
         )
+    )
     InfoCard(info = previewInfo)
 }

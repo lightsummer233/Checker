@@ -28,7 +28,7 @@ object CheckerMethods {
      * @param drmDesc
      * @param drmAlgo
      */
-    data class WidevineInfo (
+    data class WidevineInfo(
         val drmLevel: String = INVALID,
         val drmVersion: String = INVALID,
         val drmVendorLevel: String = INVALID,
@@ -41,7 +41,7 @@ object CheckerMethods {
      *
      * @return WidevineInfo
      */
-    fun getDrmInfo() : WidevineInfo {
+    fun getDrmInfo(): WidevineInfo {
         val mediaDrmInstance = MediaDrm(WIDEVINE_UUID)
         return WidevineInfo(
             drmLevel = mediaDrmInstance.getPropertyString("securityLevel"),
@@ -57,15 +57,15 @@ object CheckerMethods {
      *
      * @return String
      */
-    fun getGnssHidlHalList() : String {
+    fun getGnssHidlHalList(): String {
         val connectivityGNSSVersionRawList = CheckerUtils.checkHals()
         return connectivityGNSSVersionRawList
-                .filter { it.contains("android.hardware.gnss") }
-                .map {
-                    it.substringBefore(":").substringAfterLast("? ").substringAfterLast("Y ").trim()
-                }
-                .distinct()
-                .joinToString(separator = "\n")
+            .filter { it.contains("android.hardware.gnss") }
+            .map {
+                it.substringBefore(":").substringAfterLast("? ").substringAfterLast("Y ").trim()
+            }
+            .distinct()
+            .joinToString(separator = "\n")
     }
 
     /**
@@ -104,7 +104,7 @@ object CheckerMethods {
      * 1 - Permissive
      * 2 - Invalid
      */
-    fun getSelinuxStatus() : Int {
+    fun getSelinuxStatus(): Int {
         return CheckerUtils.isSELinuxEnforcing()
     }
 
@@ -114,7 +114,7 @@ object CheckerMethods {
      *
      * @return String
      */
-    fun getSystemSignKey() : String {
+    fun getSystemSignKey(): String {
         val buildTags = SystemProperties.get("ro.system.build.fingerprint", "undefined")
 
         val keyType: Int = if (buildTags.contains("test-keys")) {

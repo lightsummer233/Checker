@@ -57,8 +57,7 @@ fun ContentList(
         stringResource(id = R.string.abnormalities),
         R.drawable.ic_error_outline_24dp,
         listOf(
-            CheckerInfoItem
-                (
+            CheckerInfoItem(
                 abnormalitiesList.toList().joinToString(separator = "\n· ", prefix = "· "),
                 ""
             )
@@ -115,13 +114,11 @@ fun ContentList(
             CheckerInfoItem(
                 stringResource(id = R.string.connectivity_radio),
                 Build.getRadioVersion().substringAfterLast(',').also {
-                    if( it == "unknown" ) {
-                        if (!abnormalitiesList.contains(
-                                stringResource(id = R.string.abnormalities_baseband_broken)
-                        )) {
-                            abnormalitiesList.add(
-                                stringResource(id = R.string.abnormalities_baseband_broken)
-                            )
+                    if (it == "unknown") {
+                        stringResource(id = R.string.abnormalities_baseband_broken).let {
+                            if (!abnormalitiesList.contains(it)) {
+                                abnormalitiesList.add(it)
+                            }
                         }
                         securityLevel = 2
                     }
@@ -156,22 +153,18 @@ fun ContentList(
         listOf(
             CheckerInfoItem(
                 stringResource(id = R.string.security_selinux_state),
-                when(CheckerMethods.getSelinuxStatus()){
+                when (CheckerMethods.getSelinuxStatus()) {
                     0 -> "Enforcing"
                     1 -> {
-                        if (!abnormalitiesList.contains(
-                                stringResource(id = R.string.abnormalities_selinux_not_enforcing)
-                            )) {
-                            abnormalitiesList.add(
-                                stringResource(id = R.string.abnormalities_selinux_not_enforcing)
-                            )
+                        stringResource(id = R.string.abnormalities_selinux_not_enforcing).let {
+                            if (!abnormalitiesList.contains(it)) {
+                                abnormalitiesList.add(it)
+                            }
                         }
                         securityLevel = 2
                         "Permissive"
                     }
-
                     2 -> "Invalid"
-
                     else -> throw IllegalArgumentException()
                 },
                 true
@@ -180,12 +173,10 @@ fun ContentList(
                 stringResource(id = R.string.security_verified_boot_state),
                 CheckerMethods.getVerifiedBootState().also {
                     if (it != "green") {
-                        if (!abnormalitiesList.contains(
-                                stringResource(id = R.string.abnormalities_verified_boot_stat)
-                            )) {
-                            abnormalitiesList.add(
-                                stringResource(id = R.string.abnormalities_verified_boot_stat)
-                            )
+                        stringResource(id = R.string.abnormalities_verified_boot_stat).let {
+                            if (!abnormalitiesList.contains(it)) {
+                                abnormalitiesList.add(it)
+                            }
                         }
                         if (securityLevel == 0) securityLevel = 1
                     }
@@ -197,31 +188,18 @@ fun ContentList(
                 CheckerMethods.getSystemSignKey().also {
                     when (it) {
                         "test-keys" -> {
-                            if (!abnormalitiesList.contains(
-                                    stringResource(
-                                        id = R.string.abnormalities_signed_using_a_publickey
-                                    )
-                                )) {
-                                abnormalitiesList.add(
-                                    stringResource(
-                                        id = R.string.abnormalities_signed_using_a_publickey
-                                    )
-                                )
+                            stringResource(id = R.string.abnormalities_signed_using_a_publickey).let {
+                                if (!abnormalitiesList.contains(it)) {
+                                    abnormalitiesList.add(it)
+                                }
                             }
                             if (securityLevel == 0) securityLevel = 1
                         }
                         CheckerMethods.INVALID -> {
-                            if (!abnormalitiesList.contains(
-                                    stringResource(
-                                        id = R.string.abnormalities_undefined_signing_key
-                                    )
-                                )
-                            ) {
-                                abnormalitiesList.add(
-                                    stringResource(
-                                        id = R.string.abnormalities_undefined_signing_key
-                                    )
-                                )
+                            stringResource(id = R.string.abnormalities_undefined_signing_key).let {
+                                if (!abnormalitiesList.contains(it)) {
+                                    abnormalitiesList.add(it)
+                                }
                             }
                             securityLevel = 2
                         }
@@ -241,7 +219,7 @@ fun ContentList(
             ),
             CheckerInfoItem(
                 stringResource(id = R.string.universality_gsi_compatibility),
-                if(CheckerMethods.getTrebleEnabledState()) {
+                if (CheckerMethods.getTrebleEnabledState()) {
                     stringResource(id = R.string.available) + " (Treble)"
                 } else {
                     stringResource(id = R.string.unavailable)
@@ -249,7 +227,7 @@ fun ContentList(
             ),
             CheckerInfoItem(
                 stringResource(id = R.string.universality_dsu_status),
-                if(Build.VERSION.SDK_INT >= 31) {
+                if (Build.VERSION.SDK_INT >= 31) {
                     stringResource(id = R.string.available)
                 } else {
                     stringResource(id = R.string.unavailable)
@@ -264,7 +242,7 @@ fun ContentList(
             CheckerInfoItem(
                 stringResource(id = R.string.drm_security_level),
                 CheckerMethods.getDrmInfo().drmLevel.also {
-                    if ( it != "L1" ) {
+                    if (it != "L1") {
                         if (!abnormalitiesList.contains(
                                 stringResource(
                                     id = R.string.abnormalities_widevine

@@ -84,20 +84,20 @@ private val DarkColorScheme = darkColorScheme(
 
 @Composable
 fun CheckerTheme(
-  darkTheme: Boolean = isSystemInDarkTheme(),
-  // Dynamic color is available on Android 12+
-  dynamicColor: Boolean = true,
-  content: @Composable () -> Unit
+    darkTheme: Boolean = isSystemInDarkTheme(),
+    // Dynamic color is available on Android 12+
+    dynamicColor: Boolean = true,
+    content: @Composable () -> Unit
 ) {
-  val colorScheme = when {
-    dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
-        val context = LocalContext.current
-        if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
-    }
+    val colorScheme = when {
+        dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
+            val context = LocalContext.current
+            if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
+        }
 
-    darkTheme -> DarkColorScheme
-    else -> LightColorScheme
-  }
+        darkTheme -> DarkColorScheme
+        else -> LightColorScheme
+    }
     val view = LocalView.current
     if (!view.isInEditMode) {
         SideEffect {
@@ -108,11 +108,11 @@ fun CheckerTheme(
         }
     }
 
-  MaterialTheme(
-      colorScheme = colorScheme,
-      typography = Typography,
-      content = content
-  )
+    MaterialTheme(
+        colorScheme = colorScheme,
+        typography = Typography,
+        content = content
+    )
 }
 
 data class StatusTheme(
@@ -146,10 +146,12 @@ data class StatusTheme(
             primaryContainer = orange030,
             onPrimaryContainer = orange090
         )
-        val orange: StatusTheme @Composable get() =
-            if(isSystemInDarkTheme()) orangeDark else orangeLight
-        val green: StatusTheme @Composable get() =
-            if(isSystemInDarkTheme()) greenDark else greenLight
+        val orange: StatusTheme
+            @Composable get() =
+                if (isSystemInDarkTheme()) orangeDark else orangeLight
+        val green: StatusTheme
+            @Composable get() =
+                if (isSystemInDarkTheme()) greenDark else greenLight
     }
 }
 

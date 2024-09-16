@@ -59,7 +59,7 @@ object CheckerUtils {
         return if (output.joinToString().contains(" Y ")) 1 else 0
     }
 
-    data class APKSignature (
+    data class APKSignature(
         val issuer: String = "unknown",
         val subject: String = "unknown",
         val certificate: String = "Invalid"

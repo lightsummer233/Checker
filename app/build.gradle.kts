@@ -1,7 +1,7 @@
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import com.android.build.gradle.tasks.PackageAndroidArtifact
 
 plugins {
-    alias(libs.plugins.agp.app)
+    alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose.compiler)
     alias(libs.plugins.lsplugin.resopt)
@@ -22,9 +22,6 @@ android {
         versionCode = 8
         versionName = "1.0.9"
 
-        vectorDrawables {
-            useSupportLibrary = true
-        }
     }
 
     buildTypes {
@@ -40,14 +37,13 @@ android {
             applicationIdSuffix = ".debug"
         }
     }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+    java {
+        toolchain {
+            languageVersion = JavaLanguageVersion.of(17)
+        }
     }
     kotlin {
-        compilerOptions {
-            jvmTarget = JvmTarget.JVM_17
-        }
+        jvmToolchain(17)
     }
     buildFeatures {
         buildConfig = true
@@ -55,7 +51,12 @@ android {
     }
     packaging {
         resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+            // https://stackoverflow.com/a/58956288
+            excludes += "META-INF/*.version"
+            // https://github.com/Kotlin/kotlinx.coroutines?tab=readme-ov-file#avoiding-including-the-debug-infrastructure-in-the-resulting-apk
+            excludes += "DebugProbesKt.bin"
+            // https://issueantenna.com/repo/kotlin/kotlinx.coroutines/issues/3158
+            excludes += "kotlin-tooling-metadata.json"
         }
         jniLibs {
             useLegacyPackaging = false
@@ -67,6 +68,10 @@ android {
     dependenciesInfo {
         includeInApk = false
         includeInBundle = false
+    }
+    // https://stackoverflow.com/a/77745844
+    tasks.withType<PackageAndroidArtifact> {
+        doFirst { appMetadata.asFile.orNull?.writeText("") }
     }
 }
 

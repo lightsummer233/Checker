@@ -15,7 +15,7 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
-import com.google.android.material.color.MaterialColors
+import com.materialkolor.ktx.harmonize
 
 private val LightColorScheme = lightColorScheme(
     primary = md_theme_light_primary,
@@ -153,28 +153,9 @@ data class StatusTheme(
     }
 }
 
-fun harmonizedStatusTheme(originalTheme: StatusTheme, primary: Color): StatusTheme {
-    val primaryColor = primary.toArgb()
-    return StatusTheme(
-        primary = Color(
-            MaterialColors.harmonize(
-                originalTheme.primary.toArgb(), primaryColor
-            )
-        ),
-        onPrimary = Color(
-            MaterialColors.harmonize(
-                originalTheme.onPrimary.toArgb(), primaryColor
-            )
-        ),
-        primaryContainer = Color(
-            MaterialColors.harmonize(
-                originalTheme.primaryContainer.toArgb(), primaryColor
-            )
-        ),
-        onPrimaryContainer = Color(
-            MaterialColors.harmonize(
-                originalTheme.onPrimaryContainer.toArgb(), primaryColor
-            )
-        )
-    )
-}
+fun harmonizedStatusTheme(originalTheme: StatusTheme, primary: Color) = StatusTheme(
+    primary = originalTheme.primary.harmonize(primary),
+    onPrimary = originalTheme.onPrimary.harmonize(primary),
+    primaryContainer = originalTheme.primaryContainer.harmonize(primary),
+    onPrimaryContainer = originalTheme.onPrimaryContainer.harmonize(primary)
+)
